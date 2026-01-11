@@ -21,18 +21,21 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-primary-foreground">
-      <div className="section-container section-padding">
+    <footer className="relative overflow-hidden">
+      <div className="absolute inset-0 gradient-hero" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      
+      <div className="relative section-container py-20 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg">H</span>
+            <Link to="/" className="flex items-center gap-3 mb-6 group">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-aqua-light flex items-center justify-center shadow-lg">
+                <span className="text-accent-foreground font-bold text-xl">H</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg tracking-tight">HydroX</span>
-                <span className="text-xs text-primary-foreground/70 -mt-1">East African Ltd</span>
+                <span className="font-bold text-xl tracking-tight text-primary-foreground">HydroX</span>
+                <span className="text-[11px] text-primary-foreground/60 font-medium uppercase tracking-wider -mt-0.5">East African Ltd</span>
               </div>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6 max-w-sm">
@@ -97,11 +100,15 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-primary-foreground/60">
+          <p className="text-sm text-primary-foreground/50 font-medium">
             © {new Date().getFullYear()} HydroX East African Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors" aria-label="LinkedIn">
+            <a 
+              href="#" 
+              className="w-10 h-10 rounded-lg bg-primary-foreground/5 flex items-center justify-center text-primary-foreground/60 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-all" 
+              aria-label="LinkedIn"
+            >
               <Linkedin className="w-5 h-5" />
             </a>
           </div>
