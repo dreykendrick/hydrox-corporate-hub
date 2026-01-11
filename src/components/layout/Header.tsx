@@ -15,27 +15,27 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-surface-elevated/95 backdrop-blur-sm border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
       <nav className="section-container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-navy flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">H</span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-navy to-navy-light flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+              <span className="text-primary-foreground font-bold text-xl">H</span>
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-lg text-foreground tracking-tight">HydroX</span>
-              <span className="text-xs text-muted-foreground -mt-1">East African Ltd</span>
+              <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider -mt-0.5">East African Ltd</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
               >
                 {item.name}
               </Link>
@@ -43,12 +43,14 @@ export function Header() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+254700000000" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <Phone className="w-4 h-4" />
+          <div className="hidden lg:flex items-center gap-5">
+            <a href="tel:+254700000000" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                <Phone className="w-4 h-4 text-accent" />
+              </div>
               <span>+254 700 000 000</span>
             </a>
-            <Button variant="accent" size="sm" asChild>
+            <Button variant="accent" size="default" asChild className="shadow-md hover:shadow-lg">
               <Link to="/contact">Request Quote</Link>
             </Button>
           </div>

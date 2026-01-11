@@ -13,59 +13,65 @@
 @layer base {
   :root {
     /* Core brand colors - Deep professional blues */
-    --background: 210 20% 98%;
-    --foreground: 215 50% 12%;
+    --background: 210 25% 97%;
+    --foreground: 215 55% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 50% 12%;
+    --card-foreground: 215 55% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 50% 12%;
+    --popover-foreground: 215 55% 10%;
 
-    /* Primary: Deep Navy */
-    --primary: 215 50% 15%;
+    /* Primary: Deep Navy - richer, more sophisticated */
+    --primary: 218 55% 12%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Professional Blue */
-    --secondary: 210 25% 95%;
-    --secondary-foreground: 215 50% 15%;
+    /* Secondary: Cool slate */
+    --secondary: 215 30% 94%;
+    --secondary-foreground: 218 55% 12%;
 
-    /* Accent: Aqua/Teal */
-    --accent: 190 70% 42%;
+    /* Accent: Refined teal - slightly more vibrant */
+    --accent: 185 75% 38%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 20% 45%;
+    --muted: 215 25% 95%;
+    --muted-foreground: 215 20% 40%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 190 70% 42%;
+    --border: 215 25% 88%;
+    --input: 215 25% 88%;
+    --ring: 185 75% 38%;
 
-    --radius: 0.375rem;
+    --radius: 0.5rem;
 
-    /* Extended palette */
-    --navy-dark: 215 55% 10%;
-    --navy: 215 50% 15%;
-    --navy-light: 215 45% 22%;
-    --blue-medium: 210 60% 40%;
-    --aqua: 190 70% 42%;
-    --aqua-light: 190 60% 55%;
-    --gray-warm: 210 15% 55%;
-    --surface: 210 20% 99%;
+    /* Extended palette - more depth and richness */
+    --navy-dark: 220 60% 8%;
+    --navy: 218 55% 12%;
+    --navy-light: 216 50% 18%;
+    --blue-medium: 212 65% 35%;
+    --aqua: 185 75% 38%;
+    --aqua-light: 185 65% 48%;
+    --aqua-glow: 185 80% 60%;
+    --gray-warm: 215 15% 50%;
+    --surface: 215 30% 98%;
     --surface-elevated: 0 0% 100%;
+    
+    /* Premium shadows */
+    --shadow-subtle: 215 60% 15% / 0.04;
+    --shadow-medium: 215 60% 15% / 0.08;
+    --shadow-strong: 215 60% 15% / 0.15;
 
     /* Sidebar tokens */
-    --sidebar-background: 215 50% 15%;
+    --sidebar-background: 218 55% 12%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 190 70% 42%;
+    --sidebar-primary: 185 75% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 45% 22%;
+    --sidebar-accent: 216 50% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 215 45% 22%;
-    --sidebar-ring: 190 70% 42%;
+    --sidebar-border: 216 50% 18%;
+    --sidebar-ring: 185 75% 38%;
   }
 
   .dark {
@@ -141,7 +147,7 @@
   }
 
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-20 md:py-28 lg:py-32;
   }
 
   /* Text utilities */
@@ -149,13 +155,34 @@
     text-wrap: balance;
   }
 
-  /* Card styles */
+  /* Premium card styles */
   .card-elevated {
-    @apply bg-card rounded-lg border border-border shadow-sm;
+    @apply bg-card rounded-xl border border-border/60;
+    box-shadow: 
+      0 1px 2px hsl(var(--shadow-subtle)),
+      0 4px 16px hsl(var(--shadow-medium));
   }
 
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:border-accent/30;
+    @apply transition-all duration-300;
+  }
+  
+  .card-hover:hover {
+    box-shadow: 
+      0 4px 12px hsl(var(--shadow-medium)),
+      0 16px 40px hsl(var(--shadow-strong));
+    transform: translateY(-2px);
+    border-color: hsl(var(--aqua) / 0.3);
+  }
+  
+  /* Premium stat card */
+  .stat-card {
+    @apply relative overflow-hidden rounded-xl p-6 text-center;
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(var(--surface)) 100%);
+    box-shadow: 
+      0 1px 3px hsl(var(--shadow-subtle)),
+      0 6px 20px hsl(var(--shadow-medium)),
+      inset 0 1px 0 hsl(0 0% 100%);
   }
 
   /* Button base overrides */
@@ -174,6 +201,18 @@
 
   .link-accent {
     @apply text-accent hover:text-aqua-light transition-colors;
+  }
+  
+  /* Section dividers */
+  .section-divider {
+    @apply border-t border-border/50;
+  }
+  
+  /* Premium badges */
+  .badge-accent {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
+    background: hsl(var(--aqua) / 0.1);
+    color: hsl(var(--aqua));
   }
 }
 
@@ -194,12 +233,51 @@
   .border-navy { border-color: hsl(var(--navy)); }
   .border-aqua { border-color: hsl(var(--aqua)); }
 
-  /* Gradient utilities */
+  /* Premium gradient utilities */
   .gradient-navy {
-    background: linear-gradient(135deg, hsl(var(--navy-dark)) 0%, hsl(var(--navy)) 100%);
+    background: linear-gradient(145deg, hsl(var(--navy-dark)) 0%, hsl(var(--navy)) 50%, hsl(var(--navy-light)) 100%);
   }
 
   .gradient-hero {
-    background: linear-gradient(180deg, hsl(var(--navy-dark)) 0%, hsl(var(--navy)) 50%, hsl(var(--navy-light)) 100%);
+    background: linear-gradient(135deg, hsl(220 60% 6%) 0%, hsl(var(--navy-dark)) 25%, hsl(var(--navy)) 60%, hsl(var(--navy-light)) 100%);
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(var(--aqua)) 0%, hsl(var(--aqua-light)) 100%);
+  }
+  
+  .gradient-radial-glow {
+    background: radial-gradient(ellipse at 30% 0%, hsl(var(--aqua) / 0.15) 0%, transparent 50%);
+  }
+  
+  /* Premium shadow utilities */
+  .shadow-premium {
+    box-shadow: 
+      0 1px 3px hsl(var(--shadow-subtle)),
+      0 4px 12px hsl(var(--shadow-medium)),
+      0 12px 32px hsl(var(--shadow-strong));
+  }
+  
+  .shadow-card {
+    box-shadow: 
+      0 1px 2px hsl(var(--shadow-subtle)),
+      0 4px 16px hsl(var(--shadow-medium));
+  }
+  
+  .shadow-glow-accent {
+    box-shadow: 0 0 40px hsl(var(--aqua) / 0.2);
+  }
+  
+  /* Glassmorphism */
+  .glass {
+    background: hsl(0 0% 100% / 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glass-dark {
+    background: hsl(var(--navy) / 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
