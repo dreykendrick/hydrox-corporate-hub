@@ -42,18 +42,26 @@ export function Footer() {
               Trusted industrial cooling and water filtration solutions for hotels, factories, and commercial facilities across East Africa.
             </p>
             <div className="flex flex-col gap-3">
-              <a href="tel:+254700000000" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                <Phone className="w-4 h-4 text-accent" />
-                +254 700 000 000
-              </a>
-              <a href="mailto:info@hydrox.co.ke" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                <Mail className="w-4 h-4 text-accent" />
-                info@hydrox.co.ke
-              </a>
-              <div className="flex items-center gap-3 text-sm text-primary-foreground/80">
-                <MapPin className="w-4 h-4 text-accent" />
-                Nairobi, Kenya
+              <div className="flex items-start gap-3 text-sm text-primary-foreground/80">
+                <MapPin className="w-4 h-4 text-accent mt-0.5 shrink-0" />
+                <div>
+                  Kisutu Street, Nizari Flats 6<br />
+                  P.O. Box 4857<br />
+                  Dar es Salaam, Tanzania
+                </div>
               </div>
+              <div className="flex items-center gap-3 text-sm text-primary-foreground/80">
+                <span className="text-accent font-medium">Contact:</span>
+                Dickson Kashura
+              </div>
+              <a href="mailto:hydro-x@intafrica.com" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <Mail className="w-4 h-4 text-accent" />
+                hydro-x@intafrica.com
+              </a>
+              <a href="https://www.hydro-x.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
+                <span className="text-accent font-medium">Web:</span>
+                www.hydro-x.com
+              </a>
             </div>
           </div>
 
