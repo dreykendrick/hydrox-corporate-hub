@@ -45,114 +45,135 @@ export function Header() {
 
   return (
     <>
+      {/* Floating Capsule Header */}
       <motion.header
-        initial={{ y: 0 }}
-        animate={{ y: hidden ? -100 : 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ 
+          y: hidden ? -100 : 16, 
+          opacity: hidden ? 0 : 1 
+        }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl"
       >
-        {/* Glass background */}
         <motion.div
-          className="absolute inset-0 border-b"
+          className={cn(
+            "relative rounded-full border transition-all duration-500",
+            scrolled 
+              ? "bg-background/70 border-border/50 shadow-lg shadow-black/5" 
+              : "bg-background/40 border-white/10"
+          )}
           style={{
-            backgroundColor: `rgba(255, 255, 255, ${scrolled ? 0.85 : 0})`,
-            backdropFilter: `blur(${scrolled ? 24 : 0}px)`,
-            borderColor: scrolled ? "hsl(220 13% 91% / 0.8)" : "transparent",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
           }}
-        />
-
-        <nav className="relative section-container">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative w-10 h-10 rounded-xl overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-foreground to-foreground/80" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-background font-bold text-lg">H</span>
+        >
+          {/* Inner glow effect */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-50 pointer-events-none" />
+          
+          <nav className="relative px-4 sm:px-6">
+            <div className="flex items-center justify-between h-14 sm:h-16">
+              {/* Logo */}
+              <Link to="/" className="flex items-center gap-2.5 group">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-background font-bold text-sm sm:text-base">H</span>
+                  </div>
+                </motion.div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-sm sm:text-base text-foreground tracking-tight leading-none">HydroX</span>
+                  <span className="text-[9px] sm:text-[10px] text-muted-foreground font-medium uppercase tracking-[0.08em] leading-none mt-0.5">East African Ltd</span>
                 </div>
-              </motion.div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-base text-foreground tracking-tight">HydroX</span>
-                <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-[0.1em] -mt-0.5">East African Ltd</span>
+              </Link>
+
+              {/* Desktop Navigation - Pill Style */}
+              <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
+                <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="relative px-4 py-1.5 text-sm font-medium transition-colors"
+                    >
+                      <span className={cn(
+                        "relative z-10 transition-colors duration-300",
+                        location.pathname === item.href 
+                          ? "text-foreground" 
+                          : "text-muted-foreground hover:text-foreground"
+                      )}>
+                        {item.name}
+                      </span>
+                      {location.pathname === item.href && (
+                        <motion.div
+                          layoutId="activeNavCapsule"
+                          className="absolute inset-0 bg-background rounded-full shadow-sm border border-border/50"
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center">
-              <div className="flex items-center gap-1 px-1 py-1 rounded-full bg-muted/50">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="relative px-4 py-2 text-sm font-medium transition-colors"
+              {/* Desktop CTA */}
+              <div className="hidden lg:flex items-center gap-2">
+                <motion.div 
+                  whileHover={{ scale: 1.03 }} 
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <Button 
+                    variant="default" 
+                    size="sm" 
+                    asChild 
+                    className="rounded-full px-5 gap-1.5 group h-9 text-sm font-medium shadow-md shadow-foreground/10"
                   >
-                    <span className={cn(
-                      "relative z-10 transition-colors duration-300",
-                      location.pathname === item.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                    )}>
-                      {item.name}
-                    </span>
-                    {location.pathname === item.href && (
-                      <motion.div
-                        layoutId="activeNav"
-                        className="absolute inset-0 bg-background rounded-full shadow-sm"
-                        transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                      />
-                    )}
-                  </Link>
-                ))}
+                    <Link to="/contact">
+                      Get Started
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </Button>
+                </motion.div>
               </div>
-            </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button variant="default" size="default" asChild className="rounded-full px-6 gap-2 group">
-                  <Link to="/contact">
-                    Get Started
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
-                </Button>
-              </motion.div>
+              {/* Mobile Menu Button */}
+              <motion.button
+                type="button"
+                className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-full bg-muted/50 border border-border/30"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <AnimatePresence mode="wait">
+                  {mobileMenuOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <X className="w-4 h-4 text-foreground" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="w-4 h-4 text-foreground" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
             </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              type="button"
-              className="lg:hidden relative w-10 h-10 flex items-center justify-center"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileTap={{ scale: 0.9 }}
-            >
-              <AnimatePresence mode="wait">
-                {mobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-5 h-5 text-foreground" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-5 h-5 text-foreground" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
-        </nav>
+          </nav>
+        </motion.div>
       </motion.header>
 
       {/* Mobile Menu - Full Screen Overlay */}
