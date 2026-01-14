@@ -71,7 +71,7 @@ export function Header() {
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-50 pointer-events-none" />
           
           <nav className="relative px-4 sm:px-6">
-            <div className="flex items-center h-14 sm:h-16">
+            <div className="flex items-center justify-center h-14 sm:h-16">
               {/* Logo - Fixed width for balance */}
               <div className="flex-1 flex justify-start">
                 <Link to="/" className="flex items-center gap-2.5 group">
