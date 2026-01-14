@@ -72,7 +72,7 @@ export function Header() {
           
           <nav className="relative px-4 sm:px-6">
             {/* Desktop Navigation - Absolutely Centered in the capsule */}
-            <div className="hidden lg:flex items-center justify-center absolute inset-0 pointer-events-none">
+            <div className="hidden lg:flex items-center justify-center absolute inset-0 z-10">
               <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30 pointer-events-auto">
                 {navigation.map((item) => (
                   <Link
