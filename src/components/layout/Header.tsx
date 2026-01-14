@@ -71,58 +71,56 @@ export function Header() {
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-50 pointer-events-none" />
           
           <nav className="relative px-4 sm:px-6">
-            <div className="flex items-center justify-center h-14 sm:h-16">
-              {/* Logo - Fixed width for balance */}
-              <div className="flex-1 flex justify-start">
-                <Link to="/" className="flex items-center gap-2.5 group">
-                  <motion.div 
-                    whileHover={{ scale: 1.05, rotate: 3 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden"
+            {/* Desktop Navigation - Absolutely Centered in the capsule */}
+            <div className="hidden lg:flex items-center justify-center absolute inset-0 pointer-events-none">
+              <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30 pointer-events-auto">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="relative px-4 py-1.5 text-sm font-medium transition-colors"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-background font-bold text-sm sm:text-base">H</span>
-                    </div>
-                  </motion.div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-sm sm:text-base text-foreground tracking-tight leading-none">HydroX</span>
-                    <span className="text-[9px] sm:text-[10px] text-muted-foreground font-medium uppercase tracking-[0.08em] leading-none mt-0.5">East African Ltd</span>
+                    <span className={cn(
+                      "relative z-10 transition-colors duration-300",
+                      location.pathname === item.href 
+                        ? "text-foreground" 
+                        : "text-muted-foreground hover:text-foreground"
+                    )}>
+                      {item.name}
+                    </span>
+                    {location.pathname === item.href && (
+                      <motion.div
+                        layoutId="activeNavCapsule"
+                        className="absolute inset-0 bg-background rounded-full shadow-sm border border-border/50"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between h-14 sm:h-16">
+              {/* Logo */}
+              <Link to="/" className="flex items-center gap-2.5 group">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-background font-bold text-sm sm:text-base">H</span>
                   </div>
-                </Link>
-              </div>
-
-              {/* Desktop Navigation - Absolutely Centered */}
-              <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
-                <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="relative px-4 py-1.5 text-sm font-medium transition-colors"
-                    >
-                      <span className={cn(
-                        "relative z-10 transition-colors duration-300",
-                        location.pathname === item.href 
-                          ? "text-foreground" 
-                          : "text-muted-foreground hover:text-foreground"
-                      )}>
-                        {item.name}
-                      </span>
-                      {location.pathname === item.href && (
-                        <motion.div
-                          layoutId="activeNavCapsule"
-                          className="absolute inset-0 bg-background rounded-full shadow-sm border border-border/50"
-                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        />
-                      )}
-                    </Link>
-                  ))}
+                </motion.div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-sm sm:text-base text-foreground tracking-tight leading-none">HydroX</span>
+                  <span className="text-[9px] sm:text-[10px] text-muted-foreground font-medium uppercase tracking-[0.08em] leading-none mt-0.5">East African Ltd</span>
                 </div>
-              </div>
+              </Link>
 
-              {/* Desktop CTA - Fixed width for balance */}
-              <div className="flex-1 hidden lg:flex items-center justify-end gap-2">
+              {/* Desktop CTA */}
+              <div className="hidden lg:flex items-center gap-2">
                 <motion.div 
                   whileHover={{ scale: 1.03 }} 
                   whileTap={{ scale: 0.97 }}
