@@ -53,11 +53,11 @@ export function Header() {
           opacity: hidden ? 0 : 1 
         }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl"
+        className="fixed top-0 left-1/2 -translate-x-1/2 z-50"
       >
         <motion.div
           className={cn(
-            "relative rounded-full border transition-all duration-500",
+            "relative rounded-full border transition-all duration-500 px-3 sm:px-4",
             scrolled 
               ? "bg-background/70 border-border/50 shadow-lg shadow-black/5" 
               : "bg-background/40 border-white/10"
@@ -70,10 +70,28 @@ export function Header() {
           {/* Inner glow effect */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-50 pointer-events-none" />
           
-          <nav className="relative px-4 sm:px-6">
-            {/* Desktop Navigation - Absolutely Centered in the capsule */}
-            <div className="hidden lg:flex items-center justify-center absolute inset-0 z-10">
-              <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30 pointer-events-auto">
+          <nav className="relative flex items-center gap-3 h-14 sm:h-16">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
+              <motion.div 
+                whileHover={{ scale: 1.05, rotate: 3 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-background font-bold text-sm sm:text-base">H</span>
+                </div>
+              </motion.div>
+              <div className="hidden sm:flex flex-col">
+                <span className="font-semibold text-sm sm:text-base text-foreground tracking-tight leading-none">HydroX</span>
+                <span className="text-[9px] sm:text-[10px] text-muted-foreground font-medium uppercase tracking-[0.08em] leading-none mt-0.5">East African Ltd</span>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden lg:flex items-center">
+              <div className="flex items-center gap-0.5 p-1 rounded-full bg-muted/40 border border-border/30">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
@@ -100,78 +118,58 @@ export function Header() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between h-14 sm:h-16">
-              {/* Logo */}
-              <Link to="/" className="flex items-center gap-2.5 group">
-                <motion.div 
-                  whileHover={{ scale: 1.05, rotate: 3 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-background font-bold text-sm sm:text-base">H</span>
-                  </div>
-                </motion.div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-sm sm:text-base text-foreground tracking-tight leading-none">HydroX</span>
-                  <span className="text-[9px] sm:text-[10px] text-muted-foreground font-medium uppercase tracking-[0.08em] leading-none mt-0.5">East African Ltd</span>
-                </div>
-              </Link>
-
-              {/* Desktop CTA */}
-              <div className="hidden lg:flex items-center gap-2">
-                <motion.div 
-                  whileHover={{ scale: 1.03 }} 
-                  whileTap={{ scale: 0.97 }}
-                >
-                  <Button 
-                    variant="default" 
-                    size="sm" 
-                    asChild 
-                    className="rounded-full px-5 gap-1.5 group h-9 text-sm font-medium shadow-md shadow-foreground/10"
-                  >
-                    <Link to="/contact">
-                      Get Started
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                  </Button>
-                </motion.div>
-              </div>
-
-              {/* Mobile Menu Button */}
-              <motion.button
-                type="button"
-                className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-full bg-muted/50 border border-border/30"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.9 }}
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center shrink-0">
+              <motion.div 
+                whileHover={{ scale: 1.03 }} 
+                whileTap={{ scale: 0.97 }}
               >
-                <AnimatePresence mode="wait">
-                  {mobileMenuOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <X className="w-4 h-4 text-foreground" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Menu className="w-4 h-4 text-foreground" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  asChild 
+                  className="rounded-full px-5 gap-1.5 group h-9 text-sm font-medium shadow-md shadow-foreground/10"
+                >
+                  <Link to="/contact">
+                    Get Started
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              type="button"
+              className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-full bg-muted/50 border border-border/30"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <AnimatePresence mode="wait">
+                {mobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="w-4 h-4 text-foreground" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="w-4 h-4 text-foreground" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </nav>
         </motion.div>
       </motion.header>
