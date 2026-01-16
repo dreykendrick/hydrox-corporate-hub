@@ -176,7 +176,7 @@ export function Header() {
       </motion.header>
       </div>
 
-      {/* Mobile Menu - Full Screen Overlay */}
+      {/* Mobile Menu - Full Screen Overlay - Enhanced */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -186,49 +186,85 @@ export function Header() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 bg-background/98 backdrop-blur-xl" />
+            {/* Premium gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/95 backdrop-blur-2xl" />
+            
+            {/* Decorative elements */}
+            <div className="absolute top-1/4 -right-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 -left-20 w-60 h-60 bg-accent/10 rounded-full blur-3xl" />
+            
             <motion.nav
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="relative h-full flex flex-col justify-center px-8"
+              className="relative h-full flex flex-col justify-center px-6 sm:px-10 safe-area-inset"
             >
-              <div className="space-y-2">
+              {/* Navigation Links */}
+              <div className="space-y-1">
                 {navigation.map((item, index) => (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 + 0.15 }}
+                    transition={{ delay: index * 0.08 + 0.15, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <Link
                       to={item.href}
                       className={cn(
-                        "block py-4 text-3xl font-semibold tracking-tight transition-colors",
+                        "group flex items-center justify-between py-4 text-2xl sm:text-3xl font-semibold tracking-tight transition-all duration-300 border-b border-border/20",
                         location.pathname === item.href
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground"
+                          ? "text-accent"
+                          : "text-foreground/70 active:text-foreground"
                       )}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {item.name}
+                      <span>{item.name}</span>
+                      {location.pathname === item.href && (
+                        <motion.div 
+                          layoutId="mobileActiveIndicator"
+                          className="w-2 h-2 rounded-full bg-accent"
+                        />
+                      )}
                     </Link>
                   </motion.div>
                 ))}
               </div>
+              
+              {/* CTA Button */}
               <motion.div
-                className="mt-12"
-                initial={{ opacity: 0, y: 20 }}
+                className="mt-10"
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Button variant="default" size="lg" className="w-full rounded-full" asChild>
+                <Button 
+                  variant="default" 
+                  size="lg" 
+                  className="w-full rounded-full h-14 text-base font-semibold shadow-lg" 
+                  asChild
+                >
                   <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                     Get Started
-                    <ArrowUpRight className="w-4 h-4 ml-2" />
+                    <ArrowUpRight className="w-5 h-5 ml-2" />
                   </Link>
                 </Button>
+              </motion.div>
+              
+              {/* Contact info */}
+              <motion.div
+                className="mt-8 pt-8 border-t border-border/20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <p className="text-sm text-muted-foreground mb-2">Need help?</p>
+                <a 
+                  href="tel:+254700000000" 
+                  className="text-lg font-medium text-foreground active:text-accent transition-colors"
+                >
+                  +254 700 000 000
+                </a>
               </motion.div>
             </motion.nav>
           </motion.div>
