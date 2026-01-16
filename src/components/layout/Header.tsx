@@ -45,16 +45,17 @@ export function Header() {
 
   return (
     <>
-      {/* Floating Capsule Header */}
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ 
-          y: hidden ? -100 : 16, 
-          opacity: hidden ? 0 : 1 
-        }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 z-50"
-      >
+      {/* Floating Capsule Header - Wrapper for flex centering */}
+      <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
+        <motion.header
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ 
+            y: hidden ? -100 : 16, 
+            opacity: hidden ? 0 : 1 
+          }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="pointer-events-auto w-max max-w-[calc(100vw-1rem)]"
+        >
         <motion.div
           className={cn(
             "relative rounded-full border transition-all duration-500 px-3 sm:px-4",
@@ -173,6 +174,7 @@ export function Header() {
           </nav>
         </motion.div>
       </motion.header>
+      </div>
 
       {/* Mobile Menu - Full Screen Overlay */}
       <AnimatePresence>
